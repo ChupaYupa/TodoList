@@ -1,25 +1,22 @@
 import React from 'react';
+import AddNewitemForm from './AddNewitemForm';
+import TodoListTitle from './TodoListTitle';
 
 
 class TodoListHeader extends React.Component {
 
+    //отслеживание по ссылки и запись значения
     newTasksTitleRef = React.createRef();
 
-    onAddTaskButtoonClick = () => {
-        let newText = this.newTasksTitleRef.current.value;
-        this.newTasksTitleRef.current.value = '';
-        this.props.addTask(newText)
-    }
+
 
     render = () => {
-        return (
+        //если привязываем state к css .error
 
+        return (
             <div className="todoList-header">
-                <h3 className="todoList-header__title">What to Learn</h3>
-                <div className="todoList-newTaskForm">
-                    <input type="text" placeholder="New task name" ref={this.newTasksTitleRef} />
-                    <button onClick={this.onAddTaskButtoonClick}>Add</button>
-                </div>
+                <TodoListTitle title={this.props.title} />
+                <AddNewitemForm addItem={this.props.addTask} />
             </div>
 
         );
@@ -27,4 +24,3 @@ class TodoListHeader extends React.Component {
 }
 
 export default TodoListHeader;
-

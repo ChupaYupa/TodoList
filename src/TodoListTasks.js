@@ -1,13 +1,14 @@
 import React from 'react';
 import './App.css';
-import TodoListHeader from './TodoListHeader';
+import TodoListHeader from './TodoListTitle';
 import TodoListFooter from './TodoListFooter';
 import TodoListTask from './TodoListTask';
 
 class TodoListTasks extends React.Component {
     render = () => {
         const tasksElement = this.props.tasks.map(task => {
-            return <TodoListTask task={task} changeStatus={this.props.changeStatus}/>
+            return <TodoListTask task={task} changeStatus={this.props.changeStatus}
+                changeTitle={this.props.changeTitle} />
         });
         return (
             <div className="todoList-tasks">
