@@ -11,11 +11,13 @@ class TodoListHeader extends React.Component {
 
 
     render = () => {
+        debugger
         //если привязываем state к css .error
 
         return (
             <div className="todoList-header">
-                <TodoListTitle title={this.props.title} />
+
+                <TodoListTitle title={this.props.title} delete={this.props.delete} />
                 <AddNewitemForm addItem={this.props.addTask} />
             </div>
 

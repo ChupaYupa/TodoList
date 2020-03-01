@@ -3,41 +3,39 @@ import './App.css';
 import Todolist from './Todolist';
 import AddNewitemForm from './AddNewitemForm';
 import { connect } from 'react-redux';
-import { addTodoListAC } from './Redux/reducer';
+import { addTodolistAC } from "./Redux/reducer";
 
 class App extends React.Component {
 
-    componentDidMount() {
-        this.restoreState();
-    }
-    saveState = () => {
-        let stateAsString = JSON.stringify(this.state);
-        localStorage.setItem('todoLists', stateAsString);
-    }
+    // componentDidMount() {
+    //     this.restoreState();
+    // }
+
 
     //проверка данных на сервере
-    restoreState = () => {
-        let state = {
-            tasks: [],
-            filterValue: 'All'
-        }
-        let stateAsString = localStorage.getItem('todoLists');
-        if (stateAsString) {
-            state = JSON.parse(stateAsString);
-            state.todoLists.forEach(t => {
-                if (t.id >= this.nextItemId) {
-                    this.nextItemId = t.id + 1
-                }
-            });
-            this.setState(state);
-        }
-
-    }
+    // restoreState = () => {
+    //     let state = {
+    //         tasks: [],
+    //         filterValue: 'All'
+    //     }
+    //     let stateAsString = localStorage.getItem('todoLists');
+    //     if (stateAsString) {
+    //         state = JSON.parse(stateAsString);
+    //         state.todoLists.forEach(t => {
+    //             if (t.id >= this.nextItemId) {
+    //                 this.nextItemId = t.id + 1
+    //             }
+    //         });
+    //         this.setState(state);
+    //     }
+    //
+    // }
     nextItemId = 0;
     addTodoList = (title) => {
         let newTodolist = {
             id: this.nextItemId,
             title: title,
+
         };
         //инкрементим (увеличиваем) id следующей таски на 1
         this.nextItemId++;
@@ -53,7 +51,8 @@ class App extends React.Component {
 
 
     render = () => {
-        let todolists = this.props.todolists.map(tl => <Todolist id={tl.id} title={tl.title} />);
+        debugger
+        let todolists = this.props.todolists.map(tl => <Todolist id={tl.id} title={tl.title} tasks={tl.tasks} delete={tl.delete} />);
 
         return (
             <>
@@ -85,16 +84,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         addTodolist: (newTodolist) => {
-            const action = {
-                type: "ADD_TODOLIST",
-                newTodolist: newTodolist
-            };
-
+            const action = addTodolistAC(newTodolist)
             dispatch(action)
         }
     }
 }
-debugger
+
 
 const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
 export default connectedApp;

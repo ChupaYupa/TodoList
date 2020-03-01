@@ -4,9 +4,11 @@ import React from 'react';
 class AddNewitemForm extends React.Component {
     state = {
         error: true,
-        title: ''
+        title: '',
+
     }
     onAddItemButtoonClick = () => {
+
         let newText = this.state.title;
         this.setState({ title: '' });
         if (newText.trim() === '') {
@@ -33,6 +35,7 @@ class AddNewitemForm extends React.Component {
     }
 
     render = () => {
+
 
         const classForInput = this.state.error ? 'error' : '';
         return (
